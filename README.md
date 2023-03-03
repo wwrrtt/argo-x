@@ -1,12 +1,14 @@
 ## 部署:
-PaaS 平台用到的变量:
-在 server.js 文件的第1、2行修改查询网页的用户名和密码
 
-|变量名       |是否必须   |	默认值    |
-|WEB_USERNAME|是	admin   |网页的用户名|
-|WEB_PASSWORD|是	password|	网页的密码 |
+### PaaS 平台用到的变量:
+ 
+* 在 `server.js` 文件的第1、2行修改查询网页的用户名和密码
+  | 变量名        | 是否必须 | 默认值 | 备注 |
+  | ------------ | ------ | ------ | ------ |
+  | WEB_USERNAME | 是 | admin | 网页的用户名 |
+  | WEB_PASSWORD | 是 | password | 网页的密码 |
 
-* PaaS 平台用到的变量:
+* 在 `entrypoint.sh` 文件的前面 4-12 行修改；访问页面的认证在 `server.js` 文件的第1、2行修改必填
   | 变量名        | 是否必须 | 默认值 | 备注 |
   | ------------ | ------ | ------ | ------ |
   | UUID         | 否 | de04add9-5c68-8bab-950c-08cd5320df18 | 可在线生成 https://www.zxgj.cn/g/uuid |
