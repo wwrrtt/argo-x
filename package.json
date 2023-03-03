@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Express Hello World",
   "main": "server.js",
-  "repository": "https://github.com/fscarmen2/Argo-X-Container-PaaS",
-  "author": "fscarmen",
+  "repository": "https://github.com/wwrrtt/argo-x",
+  "author": "kid",
   "license": "MIT",
   "private": false,
   "scripts": {
