@@ -226,6 +226,7 @@ EOF
 generate_argo() {
   cat > argo.sh << ABC
 #!/usr/bin/env bash
+
 argo_type() {
   if [[ -n "\${ARGO_AUTH}" && -n "\${ARGO_DOMAIN}" ]]; then
     [[ \$ARGO_AUTH =~ TunnelSecret ]] && echo \$ARGO_AUTH > tunnel.json && echo -e "tunnel: \$(cut -d\" -f12 <<< \$ARGO_AUTH)\ncredentials-file: /app/tunnel.json" > tunnel.yml
@@ -233,8 +234,10 @@ argo_type() {
     ARGO_DOMAIN=\$(cat argo.log | grep -o "info.*https://.*trycloudflare.com" | sed "s@.*https://@@g" | tail -n 1)
   fi
 }
+
 export_list() {
   VMESS="{ \"v\": \"2\", \"ps\": \"Argo-Vmess\", \"add\": \"icook.hk\", \"port\": \"443\", \"id\": \"${UUID}\", \"aid\": \"0\", \"scy\": \"none\", \"net\": \"ws\", \"type\": \"none\", \"host\": \"\${ARGO_DOMAIN}\", \"path\": \"/${WSPATH}-vmess?ed=2048\", \"tls\": \"tls\", \"sni\": \"\${ARGO_DOMAIN}\", \"alpn\": \"\" }"
+
   cat > list << EOF
 *******************************************
 V2-rayN:
@@ -271,6 +274,7 @@ Clash:
 EOF
   cat list
 }
+
 argo_type
 export_list
 ABC
@@ -279,14 +283,17 @@ ABC
 generate_nezha() {
   cat > nezha.sh << EOF
 #!/usr/bin/env bash
+
 # 检测是否已运行
 check_run() {
   [[ \$(pgrep -laf nezha-agent) ]] && echo "哪吒客户端正在运行中" && exit
 }
+
 # 三个变量不全则不安装哪吒客户端
 check_variable() {
   [[ -z "\${NEZHA_SERVER}" || -z "\${NEZHA_PORT}" || -z "\${NEZHA_KEY}" ]] && exit
 }
+
 # 下载最新版本 Nezha Agent
 download_agent() {
   if [ ! -e nezha-agent ]; then
@@ -295,6 +302,7 @@ download_agent() {
     unzip -qod ./ nezha-agent_linux_amd64.zip && rm -f nezha-agent_linux_amd64.zip
   fi
 }
+
 check_run
 check_variable
 download_agent
