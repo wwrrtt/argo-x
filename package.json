@@ -4,7 +4,7 @@
   "description": "Express Hello World",
   "main": "server.js",
   "repository": "https://github.com/wwrrtt/argo-x",
-  "author": "kid",
+  "author": "wwrrtt",
   "license": "MIT",
   "private": false,
   "scripts": {
@@ -13,7 +13,8 @@
   "dependencies": {
     "express": "^4.18.2",
     "http-proxy-middleware": "^2.0.6",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "basic-auth": "^2.0.1"
   },
   "engines": {
     "node": ">=14"
