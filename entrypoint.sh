@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
-# 设置各变量
-WSPATH=${WSPATH:-'argo'}
 UUID=${UUID:-'de04add9-5c68-8bab-950c-08cd5320df18'}
+VMESS_WSPATH=${VMESS_WSPATH:-'/vm'}
+VLESS_WSPATH=${VLESS_WSPATH:-'/vl'}
+TROJAN_WSPATH=${TROJAN_WSPATH:-'/tr'}
+SS_WSPATH=${SS_WSPATH:-'/ss'}
 
 generate_config() {
   cat > config.json << EOF
@@ -14,7 +16,7 @@ generate_config() {
     },
     "inbounds":[
         {
-            "port":8080,
+            "port":3006,
             "protocol":"vless",
             "settings":{
                 "clients":[
@@ -29,19 +31,19 @@ generate_config() {
                         "dest":3001
                     },
                     {
-                        "path":"/${WSPATH}-vless",
+                        "path":"${VLESS_WSPATH}",
                         "dest":3002
                     },
                     {
-                        "path":"/${WSPATH}-vmess",
+                        "path":"${VMESS_WSPATH}",
                         "dest":3003
                     },
                     {
-                        "path":"/${WSPATH}-trojan",
+                        "path":"${TROJAN_WSPATH}",
                         "dest":3004
                     },
                     {
-                        "path":"/${WSPATH}-shadowsocks",
+                        "path":"${SS_WSPATH}",
                         "dest":3005
                     }
                 ]
@@ -84,7 +86,7 @@ generate_config() {
                 "network":"ws",
                 "security":"none",
                 "wsSettings":{
-                    "path":"/${WSPATH}-vless"
+                    "path":"${VLESS_WSPATH}"
                 }
             },
             "sniffing":{
@@ -111,7 +113,7 @@ generate_config() {
             "streamSettings":{
                 "network":"ws",
                 "wsSettings":{
-                    "path":"/${WSPATH}-vmess"
+                    "path":"${VMESS_WSPATH}"
                 }
             },
             "sniffing":{
@@ -138,7 +140,7 @@ generate_config() {
                 "network":"ws",
                 "security":"none",
                 "wsSettings":{
-                    "path":"/${WSPATH}-trojan"
+                    "path":"${TROJAN_WSPATH}"
                 }
             },
             "sniffing":{
@@ -166,7 +168,7 @@ generate_config() {
             "streamSettings":{
                 "network":"ws",
                 "wsSettings":{
-                    "path":"/${WSPATH}-shadowsocks"
+                    "path":"${SS_WSPATH}"
                 }
             },
             "sniffing":{
@@ -179,44 +181,44 @@ generate_config() {
             }
         }
     ],
-    "dns":{
-        "servers":[
-            "https+local://8.8.8.8/dns-query"
-        ]
-    },
     "outbounds":[
         {
             "protocol":"freedom"
         },
         {
-            "tag":"WARP",
-            "protocol":"wireguard",
-            "settings":{
-                "secretKey":"cKE7LmCF61IhqqABGhvJ44jWXp8fKymcMAEVAzbDF2k=",
-                "address":[
+            "tag": "WARP",
+            "protocol": "wireguard",
+            "settings": {
+                "secretKey": "GAl2z55U2UzNU5FG+LW3kowK+BA/WGMi1dWYwx20pWk=",
+                "address": [
                     "172.16.0.2/32",
-                    "fd01:5ca1:ab1e:823e:e094:eb1c:ff87:1fab/128"
+                    "2606:4700:110:8f0a:fcdb:db2f:3b3:4d49/128"
                 ],
-                "peers":[
+                "peers": [
                     {
-                        "publicKey":"bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
-                        "endpoint":"162.159.193.10:2408"
+                        "publicKey": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+                        "endpoint": "engage.cloudflareclient.com:2408"
                     }
                 ]
             }
         }
     ],
-    "routing":{
-        "domainStrategy":"AsIs",
-        "rules":[
+    "routing": {
+        "domainStrategy": "AsIs",
+        "rules": [
             {
-                "type":"field",
-                "domain":[
+                "type": "field",
+                "domain": [
                     "domain:openai.com",
                     "domain:ai.com"
                 ],
-                "outboundTag":"WARP"
+                "outboundTag": "WARP"
             }
+        ]
+    },
+    "dns":{
+        "servers":[
+            "https+local://8.8.8.8/dns-query"
         ]
     }
 }
