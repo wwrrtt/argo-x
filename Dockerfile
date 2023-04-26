@@ -1,6 +1,7 @@
 FROM node:latest
 EXPOSE 3000
 WORKDIR /app
+USER 10086
 ADD file.tar.gz /app/
 
 RUN apt-get update &&\
